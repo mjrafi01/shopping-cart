@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html id="whole">
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+</head>
+
+<body id="body">
+
+   <section>
+      <div class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner pricing">
+                           <button id="PhoneQuantityReduceBtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="PhoneQuantityBox" type="text" class="form-control text-center" value="1"  >
+                           <button id="PhoneQuantityincreaseBtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5 >$ <span id="phonePrice" >1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="CaseQuantityDecreasebtn" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="caseQuantityBox" type="text" class="form-control text-center" value="1">
+                           <button id="CaseQuantityIncreasebtn" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="casePrice">59</span> </h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>Tax:(20%)</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="subTotalPrice">1278</span></h5>
+                        <h5>$ <span id="tax">255.6</span></h5>
+                        <h5>$ <span id="totalPrice">1533.6</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+<script>
+
+   //Phone quantity events button
+   document.getElementById("PhoneQuantityReduceBtn").addEventListener('click',function () {
+ 
+      quantityUpdate(-1,'PhoneQuantityBox')
+
+
+   })
+   document.getElementById("PhoneQuantityincreaseBtn").addEventListener('click',function () {
+      //parseInt(document.getElementById('PhoneQuantityBox').value++)
+      quantityUpdate(1,'PhoneQuantityBox');
+   
+   })
+
+//PhoneCase Quantity button Events
+
+document.getElementById('CaseQuantityDecreasebtn').addEventListener('click',function () {
+   quantityUpdate(-1,'caseQuantityBox')
+})
+
+document.getElementById('CaseQuantityIncreasebtn').addEventListener('click',function () {
+   quantityUpdate(1,'caseQuantityBox')
+})
+
+//body Click Events
+
+ document.getElementById('whole').addEventListener('click',function () {
+  var PhoneQuantity= getQuantity('PhoneQuantityBox');
+  var CaseQuantity= getQuantity('caseQuantityBox')
+      var phonePrice =  pricing(PhoneQuantity,1219,'phonePrice');
+      var casePrice =   pricing(CaseQuantity,59,'casePrice');
+      var subTotalPrice= document.getElementById('subTotalPrice').innerText=phonePrice+casePrice;
+
+      var tax =(subTotalPrice * 0.20);
+
+      document.getElementById('tax').innerText=tax.toFixed(2);
+      totalPrice=(tax+subTotalPrice).toFixed(2);
+      document.getElementById('totalPrice').innerText= totalPrice;
+
+    
+   })
+   function quantityUpdate(count, id) {
+      var quantity= parseInt(document.getElementById(id).value)+count;
+  
+     if(quantity<=0){
+        quantity=0;
+   }
+     document.getElementById(id).value=quantity;
+      
+   }
+   function getQuantity(id) {
+      var quantity=parseInt(document.getElementById(id).value);
+      return quantity;
+      
+   }
+   function pricing(quantity,price,id) {
+var price=document.getElementById(id).innerText=quantity*price;
+      return price;
+      
+   }
+</script>
+
+</body>
+
+</html>
